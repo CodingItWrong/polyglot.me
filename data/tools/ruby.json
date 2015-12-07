@@ -483,7 +483,10 @@
         "api": "http://ruby-doc.org/core-2.1.0/doc/syntax/modules_and_classes_rdoc.html#label-Methods"
       },
       "call-method": {
-        "code": "myinstance.mymethod val1, val2",
+        "code": [
+          "myinstance.mymethod val1, val2",
+          "myinstance.mymethod( val1, val2 )"
+        ],
         "api": "http://ruby-doc.org/core-2.1.0/doc/syntax/modules_and_classes_rdoc.html#label-Methods"
       },
       "has-method": {

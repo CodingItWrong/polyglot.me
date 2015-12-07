@@ -251,10 +251,16 @@
         "code": "myarray.pop",
         "api": "http://www.ruby-doc.org/core-2.1.0/Array.html#method-i-pop"
       },
-      "merge": {
-        "code": "a + b",
-        "api": "http://www.ruby-doc.org/core-2.1.0/Array.html#method-i-2B"
-      },
+      "merge": [
+        {
+          "code": "a + b",
+          "api": "http://www.ruby-doc.org/core-2.1.0/Array.html#method-i-2B"
+        },
+        {
+          "code": "a.concat(b)",
+          "api": "http://www.ruby-doc.org/core-2.1.0/Array.html#method-i-concat"
+        }
+      ],
       "slice": [
         {
           "code": [

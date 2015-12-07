@@ -5,10 +5,7 @@
   "featuresets": {
     "basics": {
       "hello-world": {
-        "code": [
-          "#!/usr/bin/env ruby",
-          "puts \"Hello, World!\""
-        ]
+        "code": "puts \"Hello, World!\""
       }
     },
     "types": {

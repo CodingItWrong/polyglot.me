@@ -503,13 +503,13 @@
       "define-constant": {
         "code": [
           "class MyClass",
-          "    MYCONSTANT = 'thevalue'",
+          "    MY_CONSTANT = 'thevalue'",
           "end"
         ],
         "api": "http://ruby-doc.org/core-2.1.0/doc/syntax/modules_and_classes_rdoc.html#label-Constants"
       },
       "access-constant": {
-        "code": "MyClass::MYCONSTANT",
+        "code": "MyClass::MY_CONSTANT",
         "api": "http://ruby-doc.org/core-2.1.0/doc/syntax/modules_and_classes_rdoc.html#label-Constants"
       },
       "define-class-field": {

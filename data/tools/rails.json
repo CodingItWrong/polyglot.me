@@ -240,7 +240,7 @@
     "database": {
       "connect": {
         "code": [
-          "@conn = ActiveRecord::Base.establish_connection(",
+          "myconn = ActiveRecord::Base.establish_connection(",
           "    :adapter => \"mysql2\",",
           "    :host => \"localhost\",",
           "    :database => \"siteconfig_development\",",
@@ -251,8 +251,8 @@
         "api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
       },
       "execute-hardcoded": {
-        "code": "@result = @connection.connection.execute(\"SELECT * FROM mytable WHERE status = 'live'\")",
-        "api": "http://ellislab.com/codeigniter/user-guide/database/queries.html"
+        "code": "result = ActiveRecord::Base.connection.execute(\"SELECT * FROM mytable WHERE status = 'live'\")",
+        "api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
       },
       "retrieve-row": {
         "code": [

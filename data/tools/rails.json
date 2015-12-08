@@ -116,7 +116,7 @@
             "    validate :my_validation_method",
             "",
             "    def my_validation_method",
-            "        if(…)",
+            "        if …",
             "            errors.add(:field_name, \"is not valid for some reason explained here\"",
             "        end",
             "    end",

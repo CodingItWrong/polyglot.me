@@ -256,7 +256,7 @@
       },
       "retrieve-row": {
         "code": [
-          "@result.each(:as => :hash) do |row|",
+          "result.each(:as => :hash) do |row|",
           "    …",
           "end"
         ],
@@ -264,7 +264,7 @@
       },
       "retrieve-all-rows": {
         "code": [
-          "@result.each(:as => :hash) do |row|",
+          "result.each(:as => :hash) do |row|",
           "    …",
           "end"
         ],

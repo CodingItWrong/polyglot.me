@@ -273,7 +273,7 @@
     },
     "migrations": {
       "create-migration": {
-        "code": "rails generate migration AddPartNumberToProducts",
+        "code": "rails generate migration add_part_number_to_products",
         "api": "http://guides.rubyonrails.org/migrations.html#creating-a-standalone-migration"
       },
       "create-table": {
@@ -310,15 +310,15 @@
       },
       "rollback-last-migration": {
         "code": "rake db:rollback",
-        "api": "http://laravel.com/docs/migrations"
+        "api": "http://edgeguides.rubyonrails.org/active_record_migrations.html#rolling-back"
       },
       "rollback-all-migrations": {
-        "code": "php artisan migrate:reset",
-        "api": "http://laravel.com/docs/migrations"
+        "code": "rake db:drop",
+        "api": "http://edgeguides.rubyonrails.org/active_record_migrations.html#resetting-the-database"
       },
       "rerun-migrations": {
         "code": "rake db:reset",
-        "api": "http://laravel.com/docs/migrations"
+        "api": "http://edgeguides.rubyonrails.org/active_record_migrations.html#resetting-the-database"
       }
     },
     "orm": {

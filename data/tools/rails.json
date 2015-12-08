@@ -1,596 +1,596 @@
 {
-	"id": "rails",
-	"name": "Rails",
-	"api": "http://guides.rubyonrails.org/",
-	"featuresets": {
-		"http-server": {
-			"output": {
-				"code": "render text: \"Hello, World!\"",
-				"api": "http://api.rubyonrails.org/classes/AbstractController/Rendering.html#method-i-render"
-			},
-			"get-data": {
-				"code": "params[:myvar]",
-				"api": "http://api.rubyonrails.org/classes/ActionDispatch/Http/Parameters.html#method-i-parameters"
-			},
-			"post-data-form": {
-				"code": "params[:myvar]",
-				"api": "http://api.rubyonrails.org/classes/ActionDispatch/Http/Parameters.html#method-i-parameters"
-			},
-			"post-data-raw": {
-				"code": "request.body.read",
-				"api": "http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-body"
-			},
-			"uploaded-file": {
-				"code": [
-					"name =  upload['datafile'].original_filename",
-					"directory = \"public/data\"",
-					"path = File.join(directory, name)",
-					"File.open(path, \"wb\") { |f| f.write(upload['datafile'].read) }"
-				],
-				"api": "http://www.tutorialspoint.com/ruby-on-rails/rails-file-uploading.htm"
-			},
-			"get-cookie": {
-				"code": "cookies['cookiename']",
-				"api": "http://api.rubyonrails.org/classes/ActionDispatch/Integration/Session.html#method-i-cookies"
-			},
-			"set-cookie": {
-				"code": "cookies[name] = { :value => value, expires => 1.hour.from_now }",
-				"api": "http://stackoverflow.com/questions/1232174/rails-cookies-set-start-date-and-expire-date"
-			},
-			"get-header": {
-				"code": "request.headers['headername']",
-				"api": "http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-headers"
-			},
-			"set-header": {
-				"code": "headers[header_name] = header_value",
-				"api": "http://stackoverflow.com/questions/6843044/rails-3-response-headers"
-			},
-			"status-code": {
-				"code": "render text:mytext, status: :not_found",
-				"api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-render"
-			},
-			"content-type": {
-				"code": "render text:mytext, content_type: \"application/json\"",
-				"api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-render"
-			},
-			"redirect": {
-				"code": [
-					"redirect_to url",
-					"redirect_to action:action_name"
-				],
-				"api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-redirect-to"
-			},
-			"get-session-var": {
-				"code": "session[:key]",
-				"api": "http://guides.rubyonrails.org/action_controller_overview.html#accessing-the-session"
-			},
-			"set-session-var": {
-				"code": "session[:key] = value",
-				"api": "http://guides.rubyonrails.org/action_controller_overview.html#accessing-the-session"
-			},
-			"remove-session-var": {
-				"code": "session[:key] = nil",
-				"api": "http://guides.rubyonrails.org/action_controller_overview.html#accessing-the-session"
-			},
-			"get-flash-var": {
-				"code": "flash[:key]",
-				"api": "http://guides.rubyonrails.org/action_controller_overview.html#the-flash"
-			},
-			"set-flash-var": {
-				"code": "flash[:key] = value",
-				"api": "http://guides.rubyonrails.org/action_controller_overview.html#the-flash"
-			},
-			"keep-flash-var": {
-				"code": "flash.keep",
-				"api": "http://guides.rubyonrails.org/action_controller_overview.html#the-flash"
-			}
-		},
-		"validation": {
-			"validate": {
-				"code": [
-					{
-						"file": "my_model.rb",
-						"contents": [
-							"class My_Model < ActiveRecord::Base",
-							"    validates :myfield, required: true, length: { maximum: 20 }",
-							"end"
-						]
-					},
-					{
-						"file": "my_controller.rb",
-						"contents": [
-							"if @mymodel.save",
-							"    …",
-							"else",
-							"    @errors = @mymodel.errors",
-							"end"
-						]
-					}
-				],
-				"api": "http://guides.rubyonrails.org/getting_started.html#adding-some-validation"
-			},
-			"custom-validator": [
-				{
-					"code": [
-						"class MyModel < ActiveRecord::Base",
-						"    validate :my_validation_method",
-						"",
-						"    def my_validation_method",
-						"        if(…)",
-						"            errors.add(:field_name, \"is not valid for some reason explained here\"",
-						"        end",
-						"    end",
-						"end"
-					],
-					"api": "http://guides.rubyonrails.org/active_record_validations.html#custom-methods"
-				},
-				{
-					"code": [
-						{
-							"file": "MyCustomValidator.rb",
-							"contents": [
-								"class MyCustomValidator < ActiveModel::Validator",
-								"    def validate(record)",
-								"        unless …",
-								"            record.errors[:field_name] << 'Error message here'",
-								"        end",
-								"    end",
-								"end"
-							]
-						},
-						{
-							"file": "My_Model.rb",
-							"contents": [
-								"class My_Model < ActiveRecord::Base",
-								"    validates_with MyCustomValidator",
-								"end"
-							]
-						}
-					],
-					"api": "http://guides.rubyonrails.org/active_record_validations.html#custom-validators"
-				}
-			],
-			"required": {
-				"code": "presence: true",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#presence"
-			},
-			"required-absent": {
-				"code": "absence: true",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#absence"
-			},
-			"min-length": {
-				"code": "length: { minimum: 3 }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#length"
-			},
-			"max-length": {
-				"code": "length: { maximum: 12 }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#length"
-			},
-			"range-length": {
-				"code": "length: { in: 3..12 }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#length"
-			},
-			"exact-length": {
-				"code": "length: { is: 6 }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#length"
-			},
-			"regex": {
-				"code": "format: { with: /mypattern/, message: 'This is the error message' }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#format"
-			},
-			"number": {
-				"code": "numericality: true",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
-			},
-			"integer": {
-				"code": "numericality: { only_integer: true }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
-			},
-			"even": {
-				"code": "numericality: { even: true }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
-			},
-			"odd": {
-				"code": "numericality: { odd: true }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
-			},
-			"greater-than": {
-				"code": [
-					"numericality: { greater_than: 3 }",
-					"numericality: { greater_than_or_equal_to: 4 }"
-				],
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
-			},
-			"less-than": {
-				"code": [
-					"numericality: { less_than: 12 }",
-					"numericality: { less_than_or_equal_to: 11 }"
-				],
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
-			},
-			"equals-value": {
-				"code": "numericality: { equal_to: mynum }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
-			},
-			"in-list": {
-				"code": "inclusion: { in: %w(item1 item2 item3), message: 'This is the error message' }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#inclusion"
-			},
-			"not-in-list": {
-				"code": "exclusion: { in: %w(item1 item2 item3), message: 'This is the error message' }",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#exclusion"
-			},
-			"accepted": {
-				"code": "acceptance: true",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#acceptance"
-			},
-			"confirmed": {
-				"code": "confirmation: true",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#confirmation"
-			},
-			"not-exists-in-database": {
-				"code": "uniqueness: true",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#uniqueness"
-			},
-			"validate-associated": {
-				"code": "validates_associated :books",
-				"api": "http://guides.rubyonrails.org/active_record_validations.html#validates-associated"
-			}
-		},
-		"database": {
-			"connect": {
-				"code": [
-					"@conn = ActiveRecord::Base.establish_connection(",
-					"    :adapter => \"mysql2\",",
-					"    :host => \"localhost\",",
-					"    :database => \"siteconfig_development\",",
-					"    :username => \"root\",",
-					"    :password => \"root123\"",
-					")"
-				],
-				"api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
-			},
-			"execute-hardcoded": {
-				"code": "@result = @connection.connection.execute(\"SELECT * FROM mytable WHERE status = 'live'\")",
-				"api": "http://ellislab.com/codeigniter/user-guide/database/queries.html"
-			},
-			"retrieve-row": {
-				"code": [
-					"@result.each(:as => :hash) do |row|",
-					"    …",
-					"end"
-				],
-				"api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
-			},
-			"retrieve-all-rows": {
-				"code": [
-					"@result.each(:as => :hash) do |row|",
-					"    …",
-					"end"
-				],
-				"api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
-			}
-		},
-		"migrations": {
-			"create-migration": {
-				"code": "rails generate migration AddPartNumberToProducts",
-				"api": "http://guides.rubyonrails.org/migrations.html#creating-a-standalone-migration"
-			},
-			"create-table": {
-				"code": [
-					"create_table :products do |t|",
-					"  t.string :name",
-					"end"
-				],
-				"api": "http://guides.rubyonrails.org/migrations.html#creating-a-table"
-			},
-			"drop-table": {
-				"code": "drop_table :products",
-				"api": "http://guides.rubyonrails.org/migrations.html"
-			},
-			"add-column": {
-				"code": [
-					"add_column :users, :home_page_url, :string"
-				],
-				"api": "http://guides.rubyonrails.org/migrations.html"
-			},
-			"drop-column": {
-				"code": [
-					"remove_column :users, :home_page_url"
-				],
-				"api": "http://guides.rubyonrails.org/migrations.html"
-			},
-			"add-index": {
-				"code": "add_index :products, :part_number",
-				"api": "http://guides.rubyonrails.org/migrations.html"
-			},
-			"run-migrations": {
-				"code": "rake db:migrate",
-				"api": "http://guides.rubyonrails.org/migrations.html#running-migrations"
-			},
-			"rollback-last-migration": {
-				"code": "rake db:rollback",
-				"api": "http://laravel.com/docs/migrations"
-			},
-			"rollback-all-migrations": {
-				"code": "php artisan migrate:reset",
-				"api": "http://laravel.com/docs/migrations"
-			},
-			"rerun-migrations": {
-				"code": "rake db:reset",
-				"api": "http://laravel.com/docs/migrations"
-			}
-		},
-		"orm": {
-			"define-table": {
-				"code": [
-					"class Product < ActiveRecord::Base",
-					"    self.table_name = \"PRODUCT\" # optional",
-					"end"
-				],
-				"api": "http://guides.rubyonrails.org/active_record_basics.html#creating-active-record-models"
-			},
-			"one-to-many": {
-				"code": [
-					{
-						"file": "Customer.rb",
-						"contents": [
-							"class Customer < ActiveRecord::Base",
-							"    has_many :orders, dependent: :destroy",
-							"end"
-						]
-					},
-					{
-						"file": "Order.rb",
-						"contents": [
-							"class Order < ActiveRecord::Base",
-							"    belongs_to :customer",
-							"end"
-						]
-					}
-				],
-				"api": "http://guides.rubyonrails.org/association_basics.html#why-associations-questionmark"
-			},
-			"many-to-many": [
-				{
-					"code": [
-						{
-							"file": "Assembly.rb",
-							"contents": [
-								"class Assembly < ActiveRecord::Base",
-								"    has_and_belongs_to_many :parts",
-								"end"
-							]
-						},
-						{
-							"file": "Part.rb",
-							"contents": [
-								"class Part < ActiveRecord::Base",
-								"    has_and_belongs_to_many :assemblies",
-								"end"
-							]
-						}
-					],
-					"api": "http://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association"
-				},
-				{
-					"code": [
-						{
-							"file": "Physician.rb",
-							"contents": [
-								"class Physician < ActiveRecord::Base",
-								"    has_many :appointments",
-								"    has_many :patients, through: :appointments",
-								"end"
-							]
-						},
-						{
-							"file": "Appointment.rb",
-							"contents": [
-								"class Appointment < ActiveRecord::Base",
-								"    belongs_to :physician",
-								"    belongs_to :patient",
-								"end"
-							]
-						},
-						{
-							"file": "Patient.rb",
-							"contents": [
-								"class Patient < ActiveRecord::Base",
-								"    has_many :appointments",
-								"    has_many :physicians, through: :appointments",
-								"end"
-							]
-						}
-					],
-					"api": "http://guides.rubyonrails.org/association_basics.html#the-has-many-through-association"
-				}
-			],
-			"insert": [
-				{
-					"code": [
-						"user = User.new",
-						"user.name = 'David'",
-						"user.save"
-					],
-					"api": "http://guides.rubyonrails.org/active_record_basics.html#create"
-				},
-				{
-					"code": "user = User.create(name: \"David\")",
-					"api": "http://guides.rubyonrails.org/active_record_basics.html#create"
-				}
-			],
-			"update": {
-				"code": [
-					"user = User.find(1)",
-					"user.name = 'Dave'",
-					"user.save"
-				],
-				"api": "http://guides.rubyonrails.org/active_record_basics.html#update"
-			},
-			"delete": {
-				"code": [
-					"user = User.find(1)",
-					"user.destroy"
-				],
-				"api": "http://guides.rubyonrails.org/active_record_basics.html#delete"
-			},
-			"find-by-id": {
-				"code": "user = User.find(1)",
-				"api": "http://guides.rubyonrails.org/active_record_basics.html#read"
-			},
-			"find-one": {
-				"code": "user = User.find_by(name: 'David');",
-				"api": "http://guides.rubyonrails.org/active_record_basics.html#read"
-			},
-			"find-many": [
-				{
-					"code": "Post.where(author: author)",
-					"api": "http://guides.rubyonrails.org/active_record_querying.html#hash-conditions"
-				},
-				{
-					"code": "clients = Client.find([1, 10])",
-					"api": "http://guides.rubyonrails.org/active_record_querying.html#retrieving-multiple-objects"
-				},
-				{
-					"code": "clients = Client.find(1, 10)",
-					"api": "http://guides.rubyonrails.org/active_record_querying.html#retrieving-multiple-objects"
-				}
-			],
-			"find-by-custom-sql": {
-				"code": "Client.where(\"orders_count = ? AND locked = ?\", params[:orders], false)",
-				"api": "http://guides.rubyonrails.org/active_record_querying.html#array-conditions"
-			},
-			"all": {
-				"code": "users = User.all",
-				"api": "http://guides.rubyonrails.org/active_record_basics.html#read"
-			},
-			"count": {
-				"code": "Client.where(first_name: 'Ryan').count",
-				"api": "http://guides.rubyonrails.org/active_record_querying.html#calculations"
-			}
-		},
-		"templating": {
-			"render-to-browser": [
-				{
-					"code": [
-						"# by default, a controller action renders the view with the same name as it"
-					],
-					"api": "http://guides.rubyonrails.org/getting_started.html#laying-down-the-ground-work"
-				},
-				{
-					"code": "render \"viewname\"",
-					"api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-render"
-				}
-			],
-			"output-raw": {
-				"code": "<%raw userGenHtml %>",
-				"api": "http://stackoverflow.com/questions/4576932/ruby-on-rails-how-to-render-a-string-as-html"
-			},
-			"output-escape-html": {
-				"code": "<%= name %>",
-				"api": "http://guides.rubyonrails.org/getting_started.html#the-first-form"
-			},
-			"subview": {
-				"code": "<%= render \"subview\" %>",
-				"api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-partials"
-			},
-			"layout": {
-				"code": [
-					{
-						"file": "app/controllers/YourController.rb",
-						"contents": [
-							"class YourController < ApplicationController",
-							"    layout \"master\"",
-							"    …",
-							"end"
-						]
-					},
-					{
-						"file": "app/views/layouts/master.html.erb",
-						"contents": [
-							"<html>",
-							"    <body>",
-							"        <%= yield :sidebar %>",
-							"",
-							"        <div class='container'>",
-							"            <%= yield %>",
-							"        </div>",
-							"    </body>",
-							"</html>"
-						]
-					},
-					{
-						"file": "app/views/yourview.html.erb",
-						"contents": [
-							"<% content_for :sidebar do %>",
-							"    <p>This is the sidebar.</p>",
-							"<% end %>",
-							"",
-							"<p>This is my body content.</p>"
-						]
-					}
-				],
-				"api": "http://guides.rubyonrails.org/layouts_and_rendering.html#understanding-yield"
-			}
-		},
-		"mvc": {
-			"route": {
-				"code": [
-					{
-						"file": "config/routes.rb",
-						"contents": "get '/product/:num', to: 'catalog#product_lookup'"
-					}
-				],
-				"api": "http://guides.rubyonrails.org/routing.html"
-			},
-			"controller-action": {
-				"code": [
-					"class SampleController < ApplicationController",
-					"    def myaction",
-					"    end",
-					"end"
-				],
-				"api": "http://guides.rubyonrails.org/action_controller_overview.html#methods-and-actions"
-			},
-			"render-view": {
-				"code": [
-					"@variable_for_view = 27",
-					"render 'viewname'",
-					"# if render not called, view with same name as action is rendered by default"
-				],
-				"api": "http://guides.rubyonrails.org/layouts_and_rendering.html"
-			},
-			"url": {
-				"code": [
-					"action('MyController@myAction', $params);",
-					"route('routename', $params);"
-				],
-				"api": "http://laravel.com/docs/helpers#urls"
-			},
-			"output-form-element": {
-				"code": [
-					"<%= form_for :mymodel do |f|",
-					"    <%= f.text_area :myfield %>",
-					"<% end %>"
-				],
-				"api": "http://guides.rubyonrails.org/getting_started.html#the-first-form"
-			},
-			"log": {
-				"code": "logger.info 'hello, log!'",
-				"api": "http://mikenaberezny.com/2007/02/24/rails-logging-tips/"
-			},
-			"csrf-protection": {
-				"code": [
-					{
-						"file": "ApplicationController.rb",
-						"contents": [
-							"…",
-							"protect_from_forgery secret: \"123456789012…\" # random string"
-						]
-					}
-				]
-			}
-		}
-	}
+  "id": "rails",
+  "name": "Rails",
+  "api": "http://guides.rubyonrails.org/",
+  "featuresets": {
+    "http-server": {
+      "output": {
+        "code": "render text: \"Hello, World!\"",
+        "api": "http://api.rubyonrails.org/classes/AbstractController/Rendering.html#method-i-render"
+      },
+      "get-data": {
+        "code": "params[:myvar]",
+        "api": "http://api.rubyonrails.org/classes/ActionDispatch/Http/Parameters.html#method-i-parameters"
+      },
+      "post-data-form": {
+        "code": "params[:myvar]",
+        "api": "http://api.rubyonrails.org/classes/ActionDispatch/Http/Parameters.html#method-i-parameters"
+      },
+      "post-data-raw": {
+        "code": "request.body.read",
+        "api": "http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-body"
+      },
+      "uploaded-file": {
+        "code": [
+          "name =  upload['datafile'].original_filename",
+          "directory = \"public/data\"",
+          "path = File.join(directory, name)",
+          "File.open(path, \"wb\") { |f| f.write(upload['datafile'].read) }"
+        ],
+        "api": "http://www.tutorialspoint.com/ruby-on-rails/rails-file-uploading.htm"
+      },
+      "get-cookie": {
+        "code": "cookies['cookiename']",
+        "api": "http://api.rubyonrails.org/classes/ActionDispatch/Integration/Session.html#method-i-cookies"
+      },
+      "set-cookie": {
+        "code": "cookies[name] = { :value => value, expires => 1.hour.from_now }",
+        "api": "http://stackoverflow.com/questions/1232174/rails-cookies-set-start-date-and-expire-date"
+      },
+      "get-header": {
+        "code": "request.headers['headername']",
+        "api": "http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-headers"
+      },
+      "set-header": {
+        "code": "headers[header_name] = header_value",
+        "api": "http://stackoverflow.com/questions/6843044/rails-3-response-headers"
+      },
+      "status-code": {
+        "code": "render text:mytext, status: :not_found",
+        "api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-render"
+      },
+      "content-type": {
+        "code": "render text:mytext, content_type: \"application/json\"",
+        "api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-render"
+      },
+      "redirect": {
+        "code": [
+          "redirect_to url",
+          "redirect_to action:action_name"
+        ],
+        "api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-redirect-to"
+      },
+      "get-session-var": {
+        "code": "session[:key]",
+        "api": "http://guides.rubyonrails.org/action_controller_overview.html#accessing-the-session"
+      },
+      "set-session-var": {
+        "code": "session[:key] = value",
+        "api": "http://guides.rubyonrails.org/action_controller_overview.html#accessing-the-session"
+      },
+      "remove-session-var": {
+        "code": "session[:key] = nil",
+        "api": "http://guides.rubyonrails.org/action_controller_overview.html#accessing-the-session"
+      },
+      "get-flash-var": {
+        "code": "flash[:key]",
+        "api": "http://guides.rubyonrails.org/action_controller_overview.html#the-flash"
+      },
+      "set-flash-var": {
+        "code": "flash[:key] = value",
+        "api": "http://guides.rubyonrails.org/action_controller_overview.html#the-flash"
+      },
+      "keep-flash-var": {
+        "code": "flash.keep",
+        "api": "http://guides.rubyonrails.org/action_controller_overview.html#the-flash"
+      }
+    },
+    "validation": {
+      "validate": {
+        "code": [
+          {
+            "file": "my_model.rb",
+            "contents": [
+              "class My_Model < ActiveRecord::Base",
+              "    validates :myfield, required: true, length: { maximum: 20 }",
+              "end"
+            ]
+          },
+          {
+            "file": "my_controller.rb",
+            "contents": [
+              "if @mymodel.save",
+              "    …",
+              "else",
+              "    @errors = @mymodel.errors",
+              "end"
+            ]
+          }
+        ],
+        "api": "http://guides.rubyonrails.org/getting_started.html#adding-some-validation"
+      },
+      "custom-validator": [
+        {
+          "code": [
+            "class MyModel < ActiveRecord::Base",
+            "    validate :my_validation_method",
+            "",
+            "    def my_validation_method",
+            "        if(…)",
+            "            errors.add(:field_name, \"is not valid for some reason explained here\"",
+            "        end",
+            "    end",
+            "end"
+          ],
+          "api": "http://guides.rubyonrails.org/active_record_validations.html#custom-methods"
+        },
+        {
+          "code": [
+            {
+              "file": "MyCustomValidator.rb",
+              "contents": [
+                "class MyCustomValidator < ActiveModel::Validator",
+                "    def validate(record)",
+                "        unless …",
+                "            record.errors[:field_name] << 'Error message here'",
+                "        end",
+                "    end",
+                "end"
+              ]
+            },
+            {
+              "file": "My_Model.rb",
+              "contents": [
+                "class My_Model < ActiveRecord::Base",
+                "    validates_with MyCustomValidator",
+                "end"
+              ]
+            }
+          ],
+          "api": "http://guides.rubyonrails.org/active_record_validations.html#custom-validators"
+        }
+      ],
+      "required": {
+        "code": "presence: true",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#presence"
+      },
+      "required-absent": {
+        "code": "absence: true",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#absence"
+      },
+      "min-length": {
+        "code": "length: { minimum: 3 }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#length"
+      },
+      "max-length": {
+        "code": "length: { maximum: 12 }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#length"
+      },
+      "range-length": {
+        "code": "length: { in: 3..12 }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#length"
+      },
+      "exact-length": {
+        "code": "length: { is: 6 }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#length"
+      },
+      "regex": {
+        "code": "format: { with: /mypattern/, message: 'This is the error message' }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#format"
+      },
+      "number": {
+        "code": "numericality: true",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
+      },
+      "integer": {
+        "code": "numericality: { only_integer: true }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
+      },
+      "even": {
+        "code": "numericality: { even: true }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
+      },
+      "odd": {
+        "code": "numericality: { odd: true }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
+      },
+      "greater-than": {
+        "code": [
+          "numericality: { greater_than: 3 }",
+          "numericality: { greater_than_or_equal_to: 4 }"
+        ],
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
+      },
+      "less-than": {
+        "code": [
+          "numericality: { less_than: 12 }",
+          "numericality: { less_than_or_equal_to: 11 }"
+        ],
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
+      },
+      "equals-value": {
+        "code": "numericality: { equal_to: mynum }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#numericality"
+      },
+      "in-list": {
+        "code": "inclusion: { in: %w(item1 item2 item3), message: 'This is the error message' }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#inclusion"
+      },
+      "not-in-list": {
+        "code": "exclusion: { in: %w(item1 item2 item3), message: 'This is the error message' }",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#exclusion"
+      },
+      "accepted": {
+        "code": "acceptance: true",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#acceptance"
+      },
+      "confirmed": {
+        "code": "confirmation: true",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#confirmation"
+      },
+      "not-exists-in-database": {
+        "code": "uniqueness: true",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#uniqueness"
+      },
+      "validate-associated": {
+        "code": "validates_associated :books",
+        "api": "http://guides.rubyonrails.org/active_record_validations.html#validates-associated"
+      }
+    },
+    "database": {
+      "connect": {
+        "code": [
+          "@conn = ActiveRecord::Base.establish_connection(",
+          "    :adapter => \"mysql2\",",
+          "    :host => \"localhost\",",
+          "    :database => \"siteconfig_development\",",
+          "    :username => \"root\",",
+          "    :password => \"root123\"",
+          ")"
+        ],
+        "api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
+      },
+      "execute-hardcoded": {
+        "code": "@result = @connection.connection.execute(\"SELECT * FROM mytable WHERE status = 'live'\")",
+        "api": "http://ellislab.com/codeigniter/user-guide/database/queries.html"
+      },
+      "retrieve-row": {
+        "code": [
+          "@result.each(:as => :hash) do |row|",
+          "    …",
+          "end"
+        ],
+        "api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
+      },
+      "retrieve-all-rows": {
+        "code": [
+          "@result.each(:as => :hash) do |row|",
+          "    …",
+          "end"
+        ],
+        "api": "http://stackoverflow.com/questions/15408285/rails-3-execute-custom-sql-query-without-a-model"
+      }
+    },
+    "migrations": {
+      "create-migration": {
+        "code": "rails generate migration AddPartNumberToProducts",
+        "api": "http://guides.rubyonrails.org/migrations.html#creating-a-standalone-migration"
+      },
+      "create-table": {
+        "code": [
+          "create_table :products do |t|",
+          "  t.string :name",
+          "end"
+        ],
+        "api": "http://guides.rubyonrails.org/migrations.html#creating-a-table"
+      },
+      "drop-table": {
+        "code": "drop_table :products",
+        "api": "http://guides.rubyonrails.org/migrations.html"
+      },
+      "add-column": {
+        "code": [
+          "add_column :users, :home_page_url, :string"
+        ],
+        "api": "http://guides.rubyonrails.org/migrations.html"
+      },
+      "drop-column": {
+        "code": [
+          "remove_column :users, :home_page_url"
+        ],
+        "api": "http://guides.rubyonrails.org/migrations.html"
+      },
+      "add-index": {
+        "code": "add_index :products, :part_number",
+        "api": "http://guides.rubyonrails.org/migrations.html"
+      },
+      "run-migrations": {
+        "code": "rake db:migrate",
+        "api": "http://guides.rubyonrails.org/migrations.html#running-migrations"
+      },
+      "rollback-last-migration": {
+        "code": "rake db:rollback",
+        "api": "http://laravel.com/docs/migrations"
+      },
+      "rollback-all-migrations": {
+        "code": "php artisan migrate:reset",
+        "api": "http://laravel.com/docs/migrations"
+      },
+      "rerun-migrations": {
+        "code": "rake db:reset",
+        "api": "http://laravel.com/docs/migrations"
+      }
+    },
+    "orm": {
+      "define-table": {
+        "code": [
+          "class Product < ActiveRecord::Base",
+          "    self.table_name = \"PRODUCT\" # optional",
+          "end"
+        ],
+        "api": "http://guides.rubyonrails.org/active_record_basics.html#creating-active-record-models"
+      },
+      "one-to-many": {
+        "code": [
+          {
+            "file": "Customer.rb",
+            "contents": [
+              "class Customer < ActiveRecord::Base",
+              "    has_many :orders, dependent: :destroy",
+              "end"
+            ]
+          },
+          {
+            "file": "Order.rb",
+            "contents": [
+              "class Order < ActiveRecord::Base",
+              "    belongs_to :customer",
+              "end"
+            ]
+          }
+        ],
+        "api": "http://guides.rubyonrails.org/association_basics.html#why-associations-questionmark"
+      },
+      "many-to-many": [
+        {
+          "code": [
+            {
+              "file": "Assembly.rb",
+              "contents": [
+                "class Assembly < ActiveRecord::Base",
+                "    has_and_belongs_to_many :parts",
+                "end"
+              ]
+            },
+            {
+              "file": "Part.rb",
+              "contents": [
+                "class Part < ActiveRecord::Base",
+                "    has_and_belongs_to_many :assemblies",
+                "end"
+              ]
+            }
+          ],
+          "api": "http://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association"
+        },
+        {
+          "code": [
+            {
+              "file": "Physician.rb",
+              "contents": [
+                "class Physician < ActiveRecord::Base",
+                "    has_many :appointments",
+                "    has_many :patients, through: :appointments",
+                "end"
+              ]
+            },
+            {
+              "file": "Appointment.rb",
+              "contents": [
+                "class Appointment < ActiveRecord::Base",
+                "    belongs_to :physician",
+                "    belongs_to :patient",
+                "end"
+              ]
+            },
+            {
+              "file": "Patient.rb",
+              "contents": [
+                "class Patient < ActiveRecord::Base",
+                "    has_many :appointments",
+                "    has_many :physicians, through: :appointments",
+                "end"
+              ]
+            }
+          ],
+          "api": "http://guides.rubyonrails.org/association_basics.html#the-has-many-through-association"
+        }
+      ],
+      "insert": [
+        {
+          "code": [
+            "user = User.new",
+            "user.name = 'David'",
+            "user.save"
+          ],
+          "api": "http://guides.rubyonrails.org/active_record_basics.html#create"
+        },
+        {
+          "code": "user = User.create(name: \"David\")",
+          "api": "http://guides.rubyonrails.org/active_record_basics.html#create"
+        }
+      ],
+      "update": {
+        "code": [
+          "user = User.find(1)",
+          "user.name = 'Dave'",
+          "user.save"
+        ],
+        "api": "http://guides.rubyonrails.org/active_record_basics.html#update"
+      },
+      "delete": {
+        "code": [
+          "user = User.find(1)",
+          "user.destroy"
+        ],
+        "api": "http://guides.rubyonrails.org/active_record_basics.html#delete"
+      },
+      "find-by-id": {
+        "code": "user = User.find(1)",
+        "api": "http://guides.rubyonrails.org/active_record_basics.html#read"
+      },
+      "find-one": {
+        "code": "user = User.find_by(name: 'David');",
+        "api": "http://guides.rubyonrails.org/active_record_basics.html#read"
+      },
+      "find-many": [
+        {
+          "code": "Post.where(author: author)",
+          "api": "http://guides.rubyonrails.org/active_record_querying.html#hash-conditions"
+        },
+        {
+          "code": "clients = Client.find([1, 10])",
+          "api": "http://guides.rubyonrails.org/active_record_querying.html#retrieving-multiple-objects"
+        },
+        {
+          "code": "clients = Client.find(1, 10)",
+          "api": "http://guides.rubyonrails.org/active_record_querying.html#retrieving-multiple-objects"
+        }
+      ],
+      "find-by-custom-sql": {
+        "code": "Client.where(\"orders_count = ? AND locked = ?\", params[:orders], false)",
+        "api": "http://guides.rubyonrails.org/active_record_querying.html#array-conditions"
+      },
+      "all": {
+        "code": "users = User.all",
+        "api": "http://guides.rubyonrails.org/active_record_basics.html#read"
+      },
+      "count": {
+        "code": "Client.where(first_name: 'Ryan').count",
+        "api": "http://guides.rubyonrails.org/active_record_querying.html#calculations"
+      }
+    },
+    "templating": {
+      "render-to-browser": [
+        {
+          "code": [
+            "# by default, a controller action renders the view with the same name as it"
+          ],
+          "api": "http://guides.rubyonrails.org/getting_started.html#laying-down-the-ground-work"
+        },
+        {
+          "code": "render \"viewname\"",
+          "api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-render"
+        }
+      ],
+      "output-raw": {
+        "code": "<%raw userGenHtml %>",
+        "api": "http://stackoverflow.com/questions/4576932/ruby-on-rails-how-to-render-a-string-as-html"
+      },
+      "output-escape-html": {
+        "code": "<%= name %>",
+        "api": "http://guides.rubyonrails.org/getting_started.html#the-first-form"
+      },
+      "subview": {
+        "code": "<%= render \"subview\" %>",
+        "api": "http://guides.rubyonrails.org/layouts_and_rendering.html#using-partials"
+      },
+      "layout": {
+        "code": [
+          {
+            "file": "app/controllers/YourController.rb",
+            "contents": [
+              "class YourController < ApplicationController",
+              "    layout \"master\"",
+              "    …",
+              "end"
+            ]
+          },
+          {
+            "file": "app/views/layouts/master.html.erb",
+            "contents": [
+              "<html>",
+              "    <body>",
+              "        <%= yield :sidebar %>",
+              "",
+              "        <div class='container'>",
+              "            <%= yield %>",
+              "        </div>",
+              "    </body>",
+              "</html>"
+            ]
+          },
+          {
+            "file": "app/views/yourview.html.erb",
+            "contents": [
+              "<% content_for :sidebar do %>",
+              "    <p>This is the sidebar.</p>",
+              "<% end %>",
+              "",
+              "<p>This is my body content.</p>"
+            ]
+          }
+        ],
+        "api": "http://guides.rubyonrails.org/layouts_and_rendering.html#understanding-yield"
+      }
+    },
+    "mvc": {
+      "route": {
+        "code": [
+          {
+            "file": "config/routes.rb",
+            "contents": "get '/product/:num', to: 'catalog#product_lookup'"
+          }
+        ],
+        "api": "http://guides.rubyonrails.org/routing.html"
+      },
+      "controller-action": {
+        "code": [
+          "class SampleController < ApplicationController",
+          "    def myaction",
+          "    end",
+          "end"
+        ],
+        "api": "http://guides.rubyonrails.org/action_controller_overview.html#methods-and-actions"
+      },
+      "render-view": {
+        "code": [
+          "@variable_for_view = 27",
+          "render 'viewname'",
+          "# if render not called, view with same name as action is rendered by default"
+        ],
+        "api": "http://guides.rubyonrails.org/layouts_and_rendering.html"
+      },
+      "url": {
+        "code": [
+          "action('MyController@myAction', $params);",
+          "route('routename', $params);"
+        ],
+        "api": "http://laravel.com/docs/helpers#urls"
+      },
+      "output-form-element": {
+        "code": [
+          "<%= form_for :mymodel do |f|",
+          "    <%= f.text_area :myfield %>",
+          "<% end %>"
+        ],
+        "api": "http://guides.rubyonrails.org/getting_started.html#the-first-form"
+      },
+      "log": {
+        "code": "logger.info 'hello, log!'",
+        "api": "http://mikenaberezny.com/2007/02/24/rails-logging-tips/"
+      },
+      "csrf-protection": {
+        "code": [
+          {
+            "file": "ApplicationController.rb",
+            "contents": [
+              "…",
+              "protect_from_forgery secret: \"123456789012…\" # random string"
+            ]
+          }
+        ]
+      }
+    }
+  }
 }

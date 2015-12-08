@@ -420,14 +420,23 @@
           "api": "http://guides.rubyonrails.org/active_record_basics.html#create"
         }
       ],
-      "update": {
-        "code": [
-          "user = User.find(1)",
-          "user.name = 'Dave'",
-          "user.save"
-        ],
-        "api": "http://guides.rubyonrails.org/active_record_basics.html#update"
-      },
+      "update": [
+        {
+          "code": [
+            "user = User.find(1)",
+            "user.name = 'Dave'",
+            "user.save"
+          ],
+          "api": "http://guides.rubyonrails.org/active_record_basics.html#update"
+        },
+        {
+          "code": [
+            "user = User.find(1)",
+            "user.update(name: 'Dave')"
+          ],
+          "api": "http://guides.rubyonrails.org/active_record_basics.html#update"
+        }
+      ],
       "delete": {
         "code": [
           "user = User.find(1)",
